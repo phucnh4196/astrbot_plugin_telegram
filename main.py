@@ -64,7 +64,7 @@ class Main:
         image_path = None
         if isinstance(result.result_message, str):
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
-            escaped_text = escape_markdown(result.result_message)
+            escaped_text = self.escape_markdown(result.result_message)
             await context.bot.send_message(chat_id=update.effective_chat.id, text=escaped_text, parse_mode='MarkdownV2')
             return
         for i in result.result_message:
