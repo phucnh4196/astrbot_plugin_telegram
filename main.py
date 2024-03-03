@@ -65,7 +65,7 @@ class Main:
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
             # await update.message.reply_markdown_v2(result.result_message)
             await update.message.reply_text(
-                text=escape_markdown(result.result_message, version=2),
+                text="_italic text_",
                 parse_mode=ParseMode.MARKDOWN_V2
             )
             # await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(result.result_message, version=2), parse_mode=ParseMode.MARKDOWN_V2)
