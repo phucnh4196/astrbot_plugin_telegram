@@ -6,7 +6,8 @@ import colorlog
 import re
 
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters, ParseMode, utils
+from telegram.constants import ParseMode
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters, utils
 from nakuru.entities.components import *
 
 try:
