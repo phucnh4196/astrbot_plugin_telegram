@@ -59,7 +59,7 @@ class Main:
         image_path = None
         if isinstance(result.result_message, str):
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=result.result_message, parse_mode='HTML')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=result.result_message, parse_mode='Markdown')
             return
         for i in result.result_message:
             if isinstance(i, Plain):
