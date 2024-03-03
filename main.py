@@ -43,7 +43,12 @@ class Main:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.start_message)
     
-      
+
+    def escape_markdown(self, text):
+        reserved = '!*_[]()~>#+-=|{}.!'
+        reserved_pattern = re.compile(r'([%s])' % re.escape(reserved))
+        return reserved_pattern.sub(r'\\\1', text)
+        
     async def message_handle(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = NakuruGuildMessage()
 
@@ -65,7 +70,7 @@ class Main:
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
             # await update.message.reply_markdown_v2(result.result_message)
             await update.message.reply_text(
-                text="_italic text_",
+                text=self.escape_markdown(result.result_message),
                 parse_mode=ParseMode.MARKDOWN_V2
             )
             # await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(result.result_message, version=2), parse_mode=ParseMode.MARKDOWN_V2)
