@@ -7,7 +7,8 @@ import re
 
 from telegram import Update
 from telegram.constants import ParseMode
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters, utils
+from telegram.helpers import escape_markdown
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 from nakuru.entities.components import *
 
 try:
@@ -42,9 +43,7 @@ class Main:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.start_message)
     
-    def escape_markdown(self, text):
-         return utils.escape_markdown(text)
-        
+      
     async def message_handle(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = NakuruGuildMessage()
 
@@ -64,8 +63,7 @@ class Main:
         image_path = None
         if isinstance(result.result_message, str):
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
-            escaped_text = self.escape_markdown(result.result_message)
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=escaped_text, parse_mode=ParseMode.MARKDOWN_V2)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(result.result_message), parse_mode=ParseMode.MARKDOWN_V2)
             return
         for i in result.result_message:
             if isinstance(i, Plain):
@@ -77,7 +75,7 @@ class Main:
                     image_path = i.file
                 await context.bot.send_photo(chat_id=update.effective_chat.id, photo=image_path)
         if plain_text != "":
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.escape_markdown(plain_text), parse_mode=ParseMode.MARKDOWN_V2)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(plain_text), parse_mode=ParseMode.MARKDOWN_V2)
             
     def run_telegram_bot(self, loop: asyncio.AbstractEventLoop = None):
         asyncio.set_event_loop(loop)
