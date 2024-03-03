@@ -40,7 +40,7 @@ class Main:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.start_message)
     
-    def escape_markdown(text):
+    def escape_markdown(self, text):
         reserved = '!*_[]()~`>#+-=|{}.!'
         reserved_pattern = re.compile(r'([%s])' % re.escape(reserved))
         return reserved_pattern.sub(r'\\\1', text)
