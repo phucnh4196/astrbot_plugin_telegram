@@ -63,7 +63,7 @@ class Main:
         image_path = None
         if isinstance(result.result_message, str):
             logging.info(f"telegram/{update.effective_chat.id} <- {result.result_message}")
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(result.result_message), parse_mode=ParseMode.MARKDOWN_V2)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(result.result_message, version=2), parse_mode=ParseMode.MARKDOWN_V2)
             return
         for i in result.result_message:
             if isinstance(i, Plain):
@@ -75,7 +75,7 @@ class Main:
                     image_path = i.file
                 await context.bot.send_photo(chat_id=update.effective_chat.id, photo=image_path)
         if plain_text != "":
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(plain_text), parse_mode=ParseMode.MARKDOWN_V2)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=escape_markdown(plain_text, version=2), parse_mode=ParseMode.MARKDOWN_V2)
             
     def run_telegram_bot(self, loop: asyncio.AbstractEventLoop = None):
         asyncio.set_event_loop(loop)
