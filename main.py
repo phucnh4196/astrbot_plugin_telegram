@@ -71,7 +71,7 @@ class Main:
                     image_path = i.file
                 await context.bot.send_photo(chat_id=update.effective_chat.id, photo=image_path)
         if plain_text != "":
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=plain_text)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=plain_text, parse_mode='MarkdownV2')
             
     def run_telegram_bot(self, loop: asyncio.AbstractEventLoop = None):
         asyncio.set_event_loop(loop)
